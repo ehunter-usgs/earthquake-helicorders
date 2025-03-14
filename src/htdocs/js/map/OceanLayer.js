@@ -1,30 +1,27 @@
 /* global L */
 'use strict';
 
-
 var Util = require('util/Util');
 
-
 /**
- * Factory for ESRI Terrain base layer
+ * Factory for Ocean base layer
  *
  * @param options {Object}
  *     L.TileLayer options
  *
  * @return {L.TileLayer}
  */
-var TerrainLayer = function (options) {
+var OceanLayer = function (options) {
   options = Util.extend({
     maxZoom: 16,
   }, options);
 
   return L.tileLayer(
-    'https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
+    'https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
     options
   );
 };
 
+L.oceanLayer = OceanLayer;
 
-L.terrainLayer = TerrainLayer;
-
-module.exports = TerrainLayer;
+module.exports = OceanLayer;

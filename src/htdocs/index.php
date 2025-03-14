@@ -8,7 +8,7 @@ if (!isset($TEMPLATE)) {
   $NAVIGATION = true;
   $HEAD = '
     <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css" />
-    <link rel="stylesheet" href="seismograms/css/index.css" />
+    <link rel="stylesheet" href="css/index.css" />
   ';
   $FOOT = '
     <script>
@@ -16,7 +16,7 @@ if (!isset($TEMPLATE)) {
           SET = "nca";
     </script>
     <script src="/lib/leaflet-0.7.7/leaflet.js"></script>
-    <script src="seismograms/js/index.js"></script>
+    <script src="js/index.js"></script>
   ';
 
   // importJsonToArray() sets headers -> needs to run before including template

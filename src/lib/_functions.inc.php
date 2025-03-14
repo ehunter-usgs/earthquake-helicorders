@@ -143,18 +143,20 @@ function importJsonToArray ($file) {
  *
  * @return $value {String}
  */
-function safeParam ($name, $default=NULL, $filter=FILTER_SANITIZE_STRING) {
-  $value = NULL;
+function safeParam ($name, $default=NULL,) {
+  $value = null;
 
   if (isset($_POST[$name]) && $_POST[$name] !== '') {
-    $value = filter_input(INPUT_POST, $name, $filter);
-  } else if (isset($_GET[$name]) && $_GET[$name] !== '') {
-    $value = filter_input(INPUT_GET, $name, $filter);
+      $value = filter_input(INPUT_POST, $name);
+  } elseif (isset($_GET[$name]) && $_GET[$name] !== '') {
+      $value = filter_input(INPUT_GET, $name);
   } else {
-    $value = $default;
+      $value = $default;
   }
 
-  return $value;
+  if ($value !== null && is_string($value)) {
+      $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+  }
 }
 
 /**

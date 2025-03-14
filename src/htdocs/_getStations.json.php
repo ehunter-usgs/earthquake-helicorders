@@ -16,6 +16,7 @@ $set = 'nca';
 $today = date('Ymd');
 
 // Initialize array template for json feed
+
 $output = [
   'type' => 'FeatureCollection',
   'metadata' => [
@@ -35,7 +36,8 @@ while ($row = $rsStations->fetch(PDO::FETCH_ASSOC)) {
     $row['code']
   );
   $link = 'latest';
-  $path = "{$CONFIG['DATA_DIR']}/$set";
+  // Must use global var b/c this script is called via a function in 'php mode'
+  $path = "{$GLOBALS['CONFIG']['DATA_DIR']}/$set";
 
   // Look for today's plot if 'latest' not available
   if (!file_exists("$path/$img")) {
@@ -80,4 +82,4 @@ while ($row = $rsStations->fetch(PDO::FETCH_ASSOC)) {
 }
 
 // Send json stream to browser
-showJson($output, $callback);
+showJson($output);

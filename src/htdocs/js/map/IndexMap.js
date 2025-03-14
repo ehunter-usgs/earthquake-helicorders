@@ -11,9 +11,7 @@ require('map/MousePosition');
 require('map/RestoreMap');
 
 // Factories for creating map layers
-require('map/DarkLayer');
-require('map/GreyscaleLayer');
-require('map/SatelliteLayer');
+require('map/OceanLayer');
 require('map/StationsLayer');
 require('map/TerrainLayer');
 
@@ -109,28 +107,22 @@ var IndexMap = function (options) {
    *     }
    */
   _getMapLayers = function () {
-    var dark,
-        greyscale,
-        layers,
-        satellite,
+    var layers,
+        ocean,
         terrain;
 
-    dark = L.darkLayer();
-    greyscale = L.greyscaleLayer();
-    satellite = L.satelliteLayer();
+    ocean = L.oceanLayer();
     terrain = L.terrainLayer();
 
     layers = {};
     layers.baseLayers = {
       'Terrain': terrain,
-      'Satellite': satellite,
-      'Greyscale': greyscale,
-      'Dark': dark
+      'Ocean': ocean
     };
     layers.overlays = {
       'Stations': _stations
     };
-    layers.defaults = [terrain, _stations];
+    layers.defaults = [ocean, _stations];
 
     return layers;
   };
@@ -147,6 +139,7 @@ var IndexMap = function (options) {
 
     // Create map
     map = L.map(_el, {
+      attributionControl: false,
       layers: layers.defaults,
       scrollWheelZoom: false
     });
