@@ -157,6 +157,8 @@ function safeParam ($name, $default=NULL,) {
   if ($value !== null && is_string($value)) {
       $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
   }
+
+  return $value;
 }
 
 /**
