@@ -10,8 +10,15 @@
  */
 function getHeaderComponents ($date) {
   $cutoffDate = date('Ymd', strtotime('-14 days'));
-  $time = strtotime($date);
+  $time = strtotime($date ?? '');
   $today = date('Ymd');
+
+  // Handle the case where $date is null
+  if ($time === false) {
+    $date = 'latest';
+  } else {
+    $date = date('Ymd', $time);
+  }
 
   // Set header defaults first
   $nextHref = date('Ymd', strtotime('+1 day', $time));
