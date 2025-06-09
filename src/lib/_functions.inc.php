@@ -10,8 +10,15 @@
  */
 function getHeaderComponents ($date) {
   $cutoffDate = date('Ymd', strtotime('-14 days'));
-  $time = strtotime($date);
+  $time = strtotime($date ?? '');
   $today = date('Ymd');
+
+  // Handle the case where $date is null
+  if ($time === false) {
+    $date = 'latest';
+  } else {
+    $date = date('Ymd', $time);
+  }
 
   // Set header defaults first
   $nextHref = date('Ymd', strtotime('+1 day', $time));
@@ -143,15 +150,19 @@ function importJsonToArray ($file) {
  *
  * @return $value {String}
  */
-function safeParam ($name, $default=NULL, $filter=FILTER_SANITIZE_STRING) {
-  $value = NULL;
+function safeParam ($name, $default=NULL,) {
+  $value = null;
 
   if (isset($_POST[$name]) && $_POST[$name] !== '') {
-    $value = filter_input(INPUT_POST, $name, $filter);
-  } else if (isset($_GET[$name]) && $_GET[$name] !== '') {
-    $value = filter_input(INPUT_GET, $name, $filter);
+      $value = filter_input(INPUT_POST, $name);
+  } elseif (isset($_GET[$name]) && $_GET[$name] !== '') {
+      $value = filter_input(INPUT_GET, $name);
   } else {
-    $value = $default;
+      $value = $default;
+  }
+
+  if ($value !== null && is_string($value)) {
+      $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
   }
 
   return $value;

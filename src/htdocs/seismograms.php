@@ -8,6 +8,7 @@ $db = new Db;
 
 $date = safeParam('date');
 $id = safeParam('id');
+$header = null;
 
 if (!isset($TEMPLATE)) {
   $TITLE = 'Real-time Seismogram Displays';
@@ -62,7 +63,7 @@ if (!isset($TEMPLATE)) {
   $listHtml .= '</ul>';
 
   $TITLETAG = "Seismograms | $subtitle";
-  if ($header['title']) {
+  if (is_array($header) && isset($header['title'])) {
     $TITLETAG .= ' - ' . $header['title'];
   }
 
